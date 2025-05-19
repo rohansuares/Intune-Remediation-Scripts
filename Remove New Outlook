@@ -1,0 +1,22 @@
+Detection
+
+# Check if the device has Microsoft Outlook (New)
+if (Get-AppxPackage -Name *OutlookForWindows*) {
+    write-host "Microsoft Outlook (New) found."
+    Exit 1
+} else {
+    write-host "Microsoft Outlook (New) not found."
+    Exit 0
+}
+
+Remediation:
+
+# Script removes the new Microsoft Outlook app on Windows 11 23H2.
+
+try{
+    Get-AppxPackage -Name *OutlookForWindows* | Remove-AppxPackage -ErrorAction stop
+    Write-Host "Microsoft Outlook (New) successfully removed."
+}
+catch{
+    Write-Error "Error removing Microsoft Outlook (New)."
+}
